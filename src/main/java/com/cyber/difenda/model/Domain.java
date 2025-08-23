@@ -31,7 +31,20 @@ public class Domain {
     @JsonProperty("domainName")
     private String domainName;
     
+    @Column(name = "status") 
+    @JsonProperty("status")
+    private String status;
+    
+    @Column(name = "lastScan") 
+    @JsonProperty("lastScan")
+    private String lastScan;
+    
+    @Column(name = "issues") 
+    @JsonProperty("issues")
+    private String issues;
+    
     @Column(name = "is_active")
     @JsonProperty("isActive")
     private boolean isActive;
+    
 }
