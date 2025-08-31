@@ -35,7 +35,7 @@ public class Domain {
     @JsonProperty("status")
     private String status;
     
-    @Column(name = "lastScan") 
+    @Column(name = "lastscan") 
     @JsonProperty("lastScan")
     private String lastScan;
     
