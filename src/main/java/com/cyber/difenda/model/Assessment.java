@@ -20,24 +20,28 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "domain")
-public class Domain extends Auditable{
+@Table(name = "assessment")
+public class Assessment extends Auditable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "domain_name") 
-    @JsonProperty("domainName")
-    private String domainName;
+    @Column(name = "domain") 
+    @JsonProperty("domain")
+    private String domain;
     
     @Column(name = "status") 
     @JsonProperty("status")
     private String status;
     
-    @Column(name = "lastscan") 
+    @Column(name = "last_scan") 
     @JsonProperty("lastScan")
     private String lastScan;
+    
+    @Column(name = "organization") 
+    @JsonProperty("organization")
+    private String organization;
     
     @Column(name = "issues") 
     @JsonProperty("issues")
