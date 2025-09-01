@@ -8,7 +8,7 @@ CREATE TABLE domain (
     is_active BOOLEAN NOT NULL,
     created_by VARCHAR(100),
     updated_by VARCHAR(100),
-    created_by TIMESTAMP DEFAULT NOW(),
-    updated_by TIMESTAMP DEFAULT NOW()
+    created_date TIMESTAMP DEFAULT NOW(),
+    updated_date TIMESTAMP DEFAULT NOW()
 );
 
