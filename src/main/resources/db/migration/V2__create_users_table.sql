@@ -8,8 +8,8 @@ CREATE TABLE users (
     is_active BOOLEAN DEFAULT true,
     created_by VARCHAR(100),
     updated_by VARCHAR(100),
-    created_by TIMESTAMP DEFAULT NOW(),
-    updated_by TIMESTAMP DEFAULT NOW()
+    created_date TIMESTAMP DEFAULT NOW(),
+    updated_date TIMESTAMP DEFAULT NOW()
 );
 
 -- 2. Create Roles table
@@ -26,8 +26,8 @@ CREATE TABLE user_roles (
     role_id INT NOT NULL REFERENCES roles(id) ON DELETE CASCADE,
     created_by VARCHAR(100),
     updated_by VARCHAR(100),
-    created_by TIMESTAMP DEFAULT NOW(),
-    updated_by TIMESTAMP DEFAULT NOW(),
+    created_date TIMESTAMP DEFAULT NOW(),
+    updated_date TIMESTAMP DEFAULT NOW()
     UNIQUE (user_id, role_id)
 );
 
