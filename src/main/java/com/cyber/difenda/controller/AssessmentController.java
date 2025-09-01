@@ -4,6 +4,7 @@ import com.cyber.difenda.model.Assessment;
 import com.cyber.difenda.repository.AssessmentRepository;
 import com.cyber.difenda.service.AssessmentService;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class AssessmentController extends BaseController {
 
     @GetMapping
     public List<Assessment> getAllDomains() {
-        return assessmentRepository.findAll();
+        return assessmentRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
     }
 
     @PostMapping
