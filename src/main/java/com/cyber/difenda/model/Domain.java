@@ -21,7 +21,7 @@ import lombok.Setter;
 @Builder
 @Entity
 @Table(name = "domain")
-public class Domain {
+public class Domain extends Auditable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

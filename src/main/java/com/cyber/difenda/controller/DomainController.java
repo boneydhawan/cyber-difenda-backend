@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/domains")
-public class DomainController {
+@RequestMapping("/domain")
+public class DomainController extends BaseController {
 
     private final DomainRepository domainRepository;
 
