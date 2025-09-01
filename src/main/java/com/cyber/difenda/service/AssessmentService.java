@@ -1,11 +1,11 @@
 package com.cyber.difenda.service;
 
+import java.util.Optional;
 import java.util.Random;
 
 import org.springframework.stereotype.Service;
 
 import com.cyber.difenda.model.Assessment;
-import com.cyber.difenda.model.User;
 import com.cyber.difenda.repository.AssessmentRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -24,6 +24,11 @@ public class AssessmentService {
 		newAssessment.setLastScan(rand.nextInt(10) + "h ago");
 		newAssessment.setStatus("Warning");
         return assessmentRepository.save(newAssessment);
+    }
+	
+	public Assessment getAssessmentById(Long id) throws Exception {
+		Optional<Assessment> assessment = assessmentRepository.findById(id);
+        return assessment.get();
     }
 
 }
