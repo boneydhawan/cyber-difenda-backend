@@ -27,7 +27,7 @@ CREATE TABLE user_roles (
     created_by VARCHAR(100),
     updated_by VARCHAR(100),
     created_date TIMESTAMP DEFAULT NOW(),
-    updated_date TIMESTAMP DEFAULT NOW()
+    updated_date TIMESTAMP DEFAULT NOW(),
     UNIQUE (user_id, role_id)
 );
 
