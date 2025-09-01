@@ -22,9 +22,11 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/public/**").permitAll() // public endpoints
-                .requestMatchers("/api/admin/**").hasRole("ADMIN") // only admins
-                .anyRequest().authenticated()
+            	.requestMatchers("/error").permitAll()
+                //.requestMatchers("/api/**").permitAll() // public endpoints
+                //.requestMatchers("/api/admin/**").hasRole("ADMIN") // only admins
+            	.requestMatchers("/api/**").authenticated()
+            	.anyRequest().permitAll()
             )
             .addFilterBefore(firebaseAuthFilter, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class);
 

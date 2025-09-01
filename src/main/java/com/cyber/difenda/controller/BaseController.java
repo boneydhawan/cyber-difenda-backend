@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")  // ← Base URL for all controllers extending this
 public abstract class BaseController {
 
     protected <T> ResponseEntity<T> buildResponse(T body) {
