@@ -34,8 +34,6 @@ public class AssessmentService {
 		
 		newAssessment.setActive(true);
 		newAssessment.setIssues(rand.nextInt(10)+"");
-		newAssessment.setLastScan(rand.nextInt(10) + "h ago");
-		newAssessment.setStatus("Warning");
         return assessmentRepository.save(newAssessment);
     }
 	
@@ -45,6 +43,8 @@ public class AssessmentService {
 		Assessment assessmentRes = assessment.get();
 		if(scan.isPresent()) {
 			assessmentRes.setLatestScanId(scan.get().getId());
+			assessmentRes.setLastScanDate(scan.get().getScanDate());
+			assessmentRes.setStatus(scan.get().getStatus());
 		}
         return assessmentRes;
     }

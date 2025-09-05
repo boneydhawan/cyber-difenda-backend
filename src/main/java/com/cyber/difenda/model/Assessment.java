@@ -1,5 +1,8 @@
 package com.cyber.difenda.model;
 
+import java.time.LocalDateTime;
+
+import com.cyber.difenda.utils.DateUtils;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
@@ -32,14 +35,6 @@ public class Assessment extends Auditable{
     @JsonProperty("domain")
     private String domain;
     
-    @Column(name = "status") 
-    @JsonProperty("status")
-    private String status;
-    
-    @Column(name = "last_scan") 
-    @JsonProperty("lastScan")
-    private String lastScan;
-    
     @Column(name = "organization") 
     @JsonProperty("organization")
     private String organization;
@@ -54,5 +49,18 @@ public class Assessment extends Auditable{
     
     @Transient
     private Long latestScanId;
+    
+    @Transient
+    private String status;
+    
+    @Transient
+    private LocalDateTime lastScanDate;
+    
+    @Transient
+    private String lastScan;
+    
+    public String getLastScan() {
+        return DateUtils.getLastScanDateString(lastScanDate);
+    }
     
 }
