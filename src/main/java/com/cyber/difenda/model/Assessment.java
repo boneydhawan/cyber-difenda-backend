@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -50,5 +51,8 @@ public class Assessment extends Auditable{
     @Column(name = "is_active")
     @JsonProperty("isActive")
     private boolean isActive;
+    
+    @Transient
+    private Long latestScanId;
     
 }

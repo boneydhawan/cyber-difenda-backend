@@ -1,11 +1,8 @@
 package com.cyber.difenda.controller;
 
 import com.cyber.difenda.model.Assessment;
-import com.cyber.difenda.repository.AssessmentRepository;
 import com.cyber.difenda.service.AssessmentService;
 
-import org.springframework.data.domain.Sort;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,18 +11,16 @@ import java.util.List;
 @RequestMapping("/assessments")
 public class AssessmentController extends BaseController {
 
-    private final AssessmentRepository assessmentRepository;
     private final AssessmentService assessmentService;
 
-    public AssessmentController(AssessmentRepository assessmentRepository,
-    		AssessmentService assessmentService) {
-        this.assessmentRepository = assessmentRepository;
+    public AssessmentController(AssessmentService assessmentService
+    		) {
         this.assessmentService = assessmentService;
     }
 
     @GetMapping
     public List<Assessment> getAllAssessment() {
-        return assessmentRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        return assessmentService.findAllAssessment();
     }
     
     @GetMapping("/{id}")
@@ -36,5 +31,10 @@ public class AssessmentController extends BaseController {
     @PostMapping
     public Assessment createAssessment(@RequestBody Assessment assessment) throws Exception {
         return assessmentService.createAssessment(assessment);
+    }
+    
+    @GetMapping("/triggerScan/{assessmentId}")
+    public String getDNSAssessment(@PathVariable Long assessmentId) throws Exception {
+        return assessmentService.performScan(assessmentId);
     }
 }
