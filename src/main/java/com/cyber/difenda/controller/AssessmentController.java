@@ -30,11 +30,13 @@ public class AssessmentController extends BaseController {
 
     @PostMapping
     public Assessment createAssessment(@RequestBody Assessment assessment) throws Exception {
-        return assessmentService.createAssessment(assessment);
+    	Assessment as = assessmentService.createAssessment(assessment);
+    	assessmentService.performScan(as.getId());
+		return as;
     }
     
     @GetMapping("/triggerScan/{assessmentId}")
     public String getDNSAssessment(@PathVariable Long assessmentId) throws Exception {
-        return assessmentService.performScan(assessmentId);
+        return "";//assessmentService.performScan(assessmentId);
     }
 }

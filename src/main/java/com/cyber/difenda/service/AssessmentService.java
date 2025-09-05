@@ -53,7 +53,7 @@ public class AssessmentService {
 		return assessmentRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
 	}
 	
-	public String performScan(Long assessmentId) throws Exception {
+	public void performScan(Long assessmentId) throws Exception {
 		
 		Assessment assm = getAssessmentById(assessmentId);
 		
@@ -68,9 +68,9 @@ public class AssessmentService {
 		List<DnsRecord> dnsRecords = dnsService.fetchDnsRecords(assm.getDomain(), scan);
         dnsRecordRepository.saveAll(dnsRecords);
         scan.setDnsRecords(dnsRecords);
-
         scan.setStatus(ScanStatus.COMPLETED.name());
-		return "Completed";
+        
+        scanRepository.save(scan);
 	}
 
 }
