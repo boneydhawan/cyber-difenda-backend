@@ -1,20 +1,15 @@
 package com.cyber.difenda.service;
 
-import com.cyber.difenda.model.Role;
 import com.cyber.difenda.model.User;
-import com.cyber.difenda.repository.RoleRepository;
 import com.cyber.difenda.repository.UserRepository;
-import com.google.firebase.auth.FirebaseAuth;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
-import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
 
     /*public void setRolesInToken(String email) throws Exception {
         User user = userRepository.findByEmail(email)

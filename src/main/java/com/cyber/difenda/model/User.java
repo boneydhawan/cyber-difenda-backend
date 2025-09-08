@@ -26,7 +26,7 @@ public class User extends Auditable{
     private String firstName;
     private String lastName;
     
-    private Boolean isActive = true;
+    private Boolean isActive;
     
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

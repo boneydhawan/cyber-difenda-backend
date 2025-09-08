@@ -8,5 +8,5 @@ import com.cyber.difenda.model.DnsRecord;
 
 public interface DnsRecordRepository extends JpaRepository<DnsRecord, Long> {
 
-	List<DnsRecord> findByScan_Id(Long scanId);
+	List<DnsRecord> findByScanId(Long scanId);
 }

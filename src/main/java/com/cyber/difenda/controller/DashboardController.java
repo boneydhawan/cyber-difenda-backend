@@ -9,24 +9,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cyber.difenda.model.Assessment;
 import com.cyber.difenda.model.DnsRecord;
-import com.cyber.difenda.service.AssessmentService;
-import com.cyber.difenda.service.DnsService;
+import com.cyber.difenda.model.ScanTlsSecurity;
+import com.cyber.difenda.service.ScanService;
 
 @RestController
 @RequestMapping("/dashboard")
 public class DashboardController extends BaseController {
 
-	private final DnsService dnsService;
+	private final ScanService scanService;
 	
-	public DashboardController(DnsService dnsService) {
-		this.dnsService = dnsService;
+	public DashboardController(ScanService dnsService) {
+		this.scanService = dnsService;
     }
 	
 	@GetMapping("/scan/{scanId}/dns")
     public Map<String, List<String>> getDNSData(@PathVariable String scanId) {
-        List<DnsRecord> records = dnsService.findAllDNSforScanId(Long.parseLong(scanId));
+        List<DnsRecord> records = scanService.findAllDNSforScanId(Long.parseLong(scanId));
 
         return records.stream().collect(
             Collectors.groupingBy(
@@ -34,6 +33,14 @@ public class DashboardController extends BaseController {
                 Collectors.mapping(DnsRecord::getRecordValue, Collectors.toList())
             )
         );
+    }
+	
+	@GetMapping("/scan/{scanId}/networkSecurity")
+    public ScanTlsSecurity getTlsSecurity(@PathVariable Long scanId) {
+        ScanTlsSecurity result = scanService.getTlsSecurityForScan(scanId);
+        result.setOpenPorts(scanService.getOpenPortsForScan(scanId));
+        result.setSubdomains(scanService.getSubdomainsForScan(scanId));
+        return result;
     }
 
 }
