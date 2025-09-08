@@ -1,5 +1,9 @@
 package com.cyber.difenda.model;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,6 +40,12 @@ public class Subdomain extends Auditable {
         this.scanId = scanId;
         this.host = host;
         this.ips = ips;
+    }
+    
+    public List<String> getIpList() {
+        return Arrays.stream(ips.split(","))
+                     .map(String::trim) // remove spaces
+                     .collect(Collectors.toList());
     }
    
 }
