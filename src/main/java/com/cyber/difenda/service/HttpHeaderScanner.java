@@ -53,13 +53,7 @@ public class HttpHeaderScanner {
 					missing.add(h);
 				}
 			}
-			if (!missing.isEmpty()) {
-				findings.add("Missing recommended security headers: " + String.join(", ", missing));
-			}
-			if (!redirectToHttps) {
-				findings.add("HTTP does not redirect to HTTPS on root");
-			}
-			
+			result.put("missing_security_headers", missing);
 			checkHsts(host, result);
 			checkCipher(host, result);
 

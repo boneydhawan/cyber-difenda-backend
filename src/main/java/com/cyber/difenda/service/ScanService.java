@@ -141,7 +141,9 @@ public class ScanService {
 				result.setMissingHeaders(finding);
 			}
 		}
-
+		
+		result.setMissingHeaders(String.join(",", (List<String>) headersResult.get("missing_security_headers")));
+		
 		if (headersResult.containsKey("http_redirects_to_https")) {
 			result.setHttp_to_https((Boolean) headersResult.get("http_redirects_to_https"));
 		}
