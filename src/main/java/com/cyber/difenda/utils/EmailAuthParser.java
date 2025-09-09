@@ -142,7 +142,10 @@ public class EmailAuthParser {
 	    if (dkimList.isEmpty()) findings.add("DKIM selector not discovered (may still exist with non-common names)");
 
 	    try {
-	        emailSecurity.setDkimSelector(String.join(", ", dkimList));
+	    	String selector = dkimList.stream()
+	    	        .map(s -> "selector=" + s)
+	    	        .collect(Collectors.joining(", "));
+	        emailSecurity.setDkimSelector(String.join(", ", selector));
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
