@@ -10,7 +10,7 @@ import com.cyber.difenda.model.OpenPort;
 
 public class PortScanner {
 	
-	private static final int[] COMMON_PORTS = { 21, 22, 25, 53, 80, 110, 143, 443, 465, 587, 993, 995, 1433, 1521, 3306,
+	private static final int[] COMMON_PORTS = { 20, 21, 22, 23, 25, 53, 80, 110, 135, 137, 143, 149, 443, 465, 587, 993, 995, 1433, 1521, 3306,
 			3389, 5432, 8080, 8443 };
 	
 	public static boolean tcpOpen(String host, int port, int timeoutMs) {
