@@ -1,4 +1,4 @@
-package com.cyber.difenda.service;
+package com.cyber.difenda.utils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

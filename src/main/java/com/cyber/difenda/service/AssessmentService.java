@@ -11,16 +11,21 @@ import org.springframework.stereotype.Service;
 import com.cyber.difenda.enums.ScanStatus;
 import com.cyber.difenda.model.Assessment;
 import com.cyber.difenda.model.DnsRecord;
+import com.cyber.difenda.model.EmailSecurity;
 import com.cyber.difenda.model.OpenPort;
 import com.cyber.difenda.model.Scan;
 import com.cyber.difenda.model.ScanTlsSecurity;
 import com.cyber.difenda.model.Subdomain;
 import com.cyber.difenda.repository.AssessmentRepository;
 import com.cyber.difenda.repository.DnsRecordRepository;
+import com.cyber.difenda.repository.EmailSecurityRepository;
 import com.cyber.difenda.repository.OpenPortRepository;
 import com.cyber.difenda.repository.ScanRepository;
 import com.cyber.difenda.repository.ScanTlsSecurityRepository;
 import com.cyber.difenda.repository.SubdomainRepository;
+import com.cyber.difenda.utils.EmailAuthParser;
+import com.cyber.difenda.utils.PortScanner;
+import com.cyber.difenda.utils.SubdomainFetcher;
 
 import lombok.RequiredArgsConstructor;
 
@@ -34,6 +39,7 @@ public class AssessmentService {
 	private final OpenPortRepository openPortRepository;
 	private final ScanTlsSecurityRepository scanTlsSecurityRepository;
 	private final SubdomainRepository subdomainRepository;
+	private final EmailSecurityRepository emailSecurityRepository;
 	
 	private final ScanService scanService;
 	
@@ -85,7 +91,9 @@ public class AssessmentService {
         
         List<Subdomain> subDomains = SubdomainFetcher.fetchSubdomains(assm.getDomain(), scanId);
         subdomainRepository.saveAll(subDomains);
-       
+        
+        EmailSecurity emailSecurity = EmailAuthParser.fetchEmailSecurity(assm.getDomain(), scanId);
+        emailSecurityRepository.save(emailSecurity);
         
         scan.setStatus(ScanStatus.COMPLETED.name());
         

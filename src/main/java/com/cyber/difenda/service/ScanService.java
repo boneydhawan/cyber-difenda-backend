@@ -6,13 +6,17 @@ import org.xbill.DNS.Record;
 
 import com.cyber.difenda.enums.DnsConstants;
 import com.cyber.difenda.model.DnsRecord;
+import com.cyber.difenda.model.EmailSecurity;
 import com.cyber.difenda.model.OpenPort;
 import com.cyber.difenda.model.ScanTlsSecurity;
 import com.cyber.difenda.model.Subdomain;
 import com.cyber.difenda.repository.DnsRecordRepository;
+import com.cyber.difenda.repository.EmailSecurityRepository;
 import com.cyber.difenda.repository.OpenPortRepository;
 import com.cyber.difenda.repository.ScanTlsSecurityRepository;
 import com.cyber.difenda.repository.SubdomainRepository;
+import com.cyber.difenda.utils.HttpHeaderScanner;
+import com.cyber.difenda.utils.TLSChecker;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,6 +30,7 @@ public class ScanService {
 	private final ScanTlsSecurityRepository tlsRepo;
 	private final OpenPortRepository openPortRepository;
 	private final SubdomainRepository subdomainRepository;
+	private final EmailSecurityRepository emailSecurityRepo;
 
 	public List<DnsRecord> findAllDNSforScanId(Long scanId) {
 		return dnsRecordRepository.findByScanId(scanId);
@@ -112,6 +117,10 @@ public class ScanService {
 
 	public ScanTlsSecurity getTlsSecurityForScan(Long scanId) {
 		return tlsRepo.findByScanId(scanId).orElse(null);
+	}
+	
+	public EmailSecurity getEmailSecurityForScan(Long scanId) {
+		return emailSecurityRepo.findByScanId(scanId).orElse(null);
 	}
 	
 	public List<OpenPort> getOpenPortsForScan(Long scanId) {

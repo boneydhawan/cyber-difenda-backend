@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cyber.difenda.model.DnsRecord;
+import com.cyber.difenda.model.EmailSecurity;
 import com.cyber.difenda.model.ScanTlsSecurity;
 import com.cyber.difenda.service.ScanService;
 
@@ -41,6 +42,13 @@ public class DashboardController extends BaseController {
         result.setOpenPorts(scanService.getOpenPortsForScan(scanId));
         result.setSubdomains(scanService.getSubdomainsForScan(scanId));
         return result;
+    }
+	
+	@GetMapping("/scan/{scanId}/emailSecurity")
+    public EmailSecurity getEmailSecurity(@PathVariable Long scanId) {
+		EmailSecurity emailSecurity = scanService.getEmailSecurityForScan(scanId);
+       
+        return emailSecurity;
     }
 
 }

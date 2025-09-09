@@ -1,5 +1,6 @@
 package com.cyber.difenda.model;
 
+import java.util.Arrays;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -50,4 +51,12 @@ public class ScanTlsSecurity {
     @Transient
     private List<Subdomain> subdomains;
 
+    public List<String> getMissingHeaders() {
+    	if (missingHeaders == null || missingHeaders.isBlank()) {
+            return List.of();
+        }
+        return Arrays.stream(missingHeaders.split(","))
+                     .map(String::trim)
+                     .toList();
+    }
 }
