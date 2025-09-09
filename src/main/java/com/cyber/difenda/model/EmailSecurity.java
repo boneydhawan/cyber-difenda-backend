@@ -40,14 +40,14 @@ public class EmailSecurity {
 
     // MX records stored as JSON string
     @Column(columnDefinition = "TEXT")
-    private String mxRecords;  // e.g. [{"priority":10,"host":"mx.zoho.com"}, ...]
+    private String mxRecords;  
 
     // SPF includes stored as JSON string
     @Column(columnDefinition = "TEXT")
-    private String spfIncludes; // e.g. ["spf.protection.outlook.com", "zcsend.net"]
-
+    private String spfIncludes; 
+    
     @Column(columnDefinition = "TEXT")
-    private String findings; // e.g. ["DMARC missing rua", "No TLS-RPT record"]
+    private String findings; 
     
     public List<String> getFindings() {
     	if (findings == null || findings.isBlank()) {

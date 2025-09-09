@@ -130,22 +130,19 @@ public class EmailAuthParser {
 	    }
 
 	    // 3️⃣ DKIM (common selectors)
-	    List<Map<String, Object>> dkimList = new ArrayList<>();
+	    List<String> dkimList = new ArrayList<>();
 	    List<String> selectors = Arrays.asList("default", "selector1", "mail");
 	    for (String sel : selectors) {
 	        List<String> recs = dnsTxt(sel + "._domainkey." + domain);
 	        String hit = recs.stream().filter(t -> t.toLowerCase().startsWith("v=dkim1")).findFirst().orElse(null);
 	        if (hit != null) {
-	            Map<String, Object> dkimRec = new HashMap<>();
-	            dkimRec.put("selector", sel);
-	            dkimRec.put("present", true);
-	            dkimList.add(dkimRec);
+	            dkimList.add(sel);
 	        }
 	    }
 	    if (dkimList.isEmpty()) findings.add("DKIM selector not discovered (may still exist with non-common names)");
 
 	    try {
-	        emailSecurity.setDkimSelector(objectMapper.writeValueAsString(dkimList));
+	        emailSecurity.setDkimSelector(String.join(", ", dkimList));
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
