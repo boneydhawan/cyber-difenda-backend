@@ -57,5 +57,15 @@ public class EmailSecurity {
                      .map(String::trim)
                      .toList();
     }
+    
+    public List<String> getDkimSelector() {
+    	if (dkimSelector == null || dkimSelector.isBlank()) {
+            return List.of();
+        }
+        return Arrays.stream(dkimSelector.split(","))
+                     .map(String::trim)
+                     .toList();
+    }
+
 
 }
