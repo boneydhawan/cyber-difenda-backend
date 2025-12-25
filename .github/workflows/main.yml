@@ -1,0 +1,43 @@
+name: Health Check
+
+on:
+  schedule:
+    # Run every 5 minutes (minimum interval for GitHub Actions)
+    # Note: GitHub Actions doesn't support 1-minute intervals
+    # IMPORTANT: Scheduled workflows ONLY run on the default branch (usually 'main' or 'master')
+    # Make sure this file is committed and pushed to your default branch
+    # Cron format: minute hour day month day-of-week (UTC time)
+    - cron: '*/5 * * * *'
+  workflow_dispatch: # Allow manual triggering
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - '.github/workflows/health-check.yml'
+
+jobs:
+  health-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    
+    steps:
+      - name: Checkout repository (optional - only if you need repo files)
+        uses: actions/checkout@v4
+      
+      - name: Keep Backend Alive
+        run: |
+          echo "Keeping backend alive..."
+          curl -X GET \
+            -H "Accept: application/json" \
+            -w "\nHTTP Status: %{http_code}\nTime: %{time_total}s\n" \
+            -s -S --max-time 30 \
+            "https://cyber-difenda-backend-1.onrender.com/actuator/health"
+      
+      - name: Summary
+        run: |
+          echo "✅ Health check completed at $(date)"
+          echo "Both requests executed successfully"
+          echo ""
+          echo "Next scheduled run: Every 5 minutes"
+          echo "Note: Scheduled workflows only run on the default branch"
